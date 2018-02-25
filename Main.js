@@ -6,13 +6,37 @@ const Form = t.form.Form;
 
 // here we are: define your domain model
 var Person = t.struct({
-  name: t.String,              // a required string
-  surname: t.maybe(t.String),  // an optional string
-  age: t.Number,               // a required number
-  rememberMe: t.Boolean        // a boolean
+  firstName: t.maybe(t.String),              // a required string
+  lastName: t.maybe(t.String),  // an optional string
+  company: t.maybe(t.String),               // a required number
+  department: t.maybe(t.String),        // a boolean
+  position: t.maybe(t.String),
+  email: t.maybe(t.String)
 });
 
-var options = {};
+var options = {
+  fields: {
+    firstName: {
+      placeholder: 'First Name'
+    },
+    lastName: {
+      placeholder: 'Last Name'
+    },
+    company: {
+      placeholder: 'Company'
+    },
+    department: {
+      placeholder: 'Department'
+    },
+    position: {
+      placeholder: 'Position'
+    },
+    email: {
+      placeholder: 'Email'
+    }
+  },
+  auto: 'placeholders'
+};
 
 
 export default class Main extends Component {
@@ -43,9 +67,9 @@ export default class Main extends Component {
 const styles = StyleSheet.create({
   container: {
     justifyContent: 'center',
-    marginTop: 50,
+    marginTop: 20,
     padding: 20,
-    backgroundColor: '#ffffff',
+    backgroundColor: '#ffffff'
   },
   title: {
     fontSize: 30,
