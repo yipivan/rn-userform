@@ -1,4 +1,3 @@
-import React, {Component} from 'react';
 import { 
   AppRegistry, 
   Text, 
@@ -6,9 +5,14 @@ import {
   StyleSheet, 
   TouchableHighlight
 } from 'react-native';
+import React, {Component} from 'react';
+import { Provider } from 'react-redux';
+import store from './store';
 
 import * as t from 'tcomb-form-native';
+import { getUser, getRef } from './actions';
 import * as firebase from 'firebase';
+import {connect} from 'react-redux';
 
 const firebaseConfig = {
   apiKey: "AIzaSyA4sLAZYQJhmXbPrhqjohwnZy5dhl90uSI",
@@ -17,10 +21,10 @@ const firebaseConfig = {
   projectId: "userform-811ba",
   storageBucket: "userform-811ba.appspot.com",
 }
+
 const firebaseApp = firebase.initializeApp(firebaseConfig);
 
 const Form = t.form.Form;
-
 
 // here we are: define your domain model
 const Person = t.struct({
@@ -56,7 +60,7 @@ const options = {
   auto: 'placeholders'
 };
 
-export default class App extends Component{
+class App extends Component{
 
   constructor() {
     super();
@@ -64,27 +68,15 @@ export default class App extends Component{
       'Setting a timer'
     ];  
 
-    this.state = {
-      form: {}
-    }
-
     this.userRef = this.getRef().child('user');
   }
 
   getRef(){
     return firebaseApp.database().ref();
   }
-
+  
   componentWillMount() {
-    this.getUser(this.userRef);
-  }
-
-  getUser(userRef) {
-    userRef.once('value', (snapshot) => {
-      this.setState({
-        form: snapshot.val()
-      })
-    });
+    getUser(this.userRef);
   }
 
   onPress() {
@@ -97,17 +89,19 @@ export default class App extends Component{
 
   render() {
     return (
-      <View style={styles.container}>
-        <Form
-          ref="form"
-          type={Person}
-          options={options}
-          value={this.state.form}
-        />
-        <TouchableHighlight style={styles.button} onPress={this.onPress.bind(this)} underlayColor='#99d9f4'>
-          <Text style={styles.buttonText}>Save</Text>
-        </TouchableHighlight>
-      </View>
+      <Provider store={store}>
+        <View style={styles.container}>
+          <Form
+            ref="form"
+            type={Person}
+            options={options}
+            value={this.props.form}
+          />
+          <TouchableHighlight style={styles.button} onPress={this.onPress.bind(this)} underlayColor='#99d9f4'>
+            <Text style={styles.buttonText}>Save</Text>
+          </TouchableHighlight>
+        </View>
+      </Provider>
     );
   }
 }
@@ -143,3 +137,22 @@ const styles = StyleSheet.create({
 });
 
 AppRegistry.registerComponent('App', () => App);
+
+const mapStateToProps = (state) => {
+  return {
+    form: state.form
+  }
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    getUser: (user) => {
+      dispatch({
+        type: "GET_USER",
+        payload: user
+      });
+    } 
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);
