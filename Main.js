@@ -5,16 +5,15 @@ import * as t from 'tcomb-form-native';
 const Form = t.form.Form;
 
 // here we are: define your domain model
-const Person = t.struct({
-  firstName: t.String,      // a required string
+var Person = t.struct({
+  name: t.String,              // a required string
   surname: t.maybe(t.String),  // an optional string
   age: t.Number,               // a required number
   rememberMe: t.Boolean        // a boolean
 });
 
-var options = {
-  auto: 'placeholders'
-};
+var options = {};
+
 
 export default class Main extends Component {
   onPress() {
