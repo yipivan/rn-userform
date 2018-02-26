@@ -6,8 +6,6 @@ import {
   TouchableHighlight
 } from 'react-native';
 import React, {Component} from 'react';
-import { Provider, connect } from 'react-redux';
-import store from './store';
 
 import t from 'tcomb-form-native';
 import { getUser } from './actions';
@@ -89,7 +87,6 @@ export default class Main extends Component{
 
   render() {
     return (
-      <Provider store={store}>
         <View style={styles.container}>
           <Form
             ref="form"
@@ -101,7 +98,6 @@ export default class Main extends Component{
             <Text style={styles.buttonText}>Save</Text>
           </TouchableHighlight>
         </View>
-      </Provider>
     );
   }
 }
