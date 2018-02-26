@@ -75,7 +75,7 @@ class Main extends Component{
   }
   
   componentWillMount() {
-    this.props.dispatch(getUser(this.userRef));
+    this.props.getUser(this.userRef);
   }
 
   onPress() {
