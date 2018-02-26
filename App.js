@@ -9,9 +9,9 @@ import React, {Component} from 'react';
 import { Provider } from 'react-redux';
 import store from './store';
 
-import * as t from 'tcomb-form-native';
+import t from 'tcomb-form-native';
 import { getUser, getRef } from './actions';
-import * as firebase from 'firebase';
+import firebase from 'firebase';
 import {connect} from 'react-redux';
 
 const firebaseConfig = {
@@ -26,7 +26,7 @@ const firebaseApp = firebase.initializeApp(firebaseConfig);
 
 const Form = t.form.Form;
 
-// here we are: define your domain model
+//define your domain model
 const Person = t.struct({
   firstName: t.maybe(t.String),      
   lastName: t.maybe(t.String),     
@@ -76,13 +76,13 @@ class App extends Component{
   }
   
   componentWillMount() {
-    getUser(this.userRef);
+    this.props.getUser(this.userRef);
   }
 
   onPress() {
     var value = this.refs.form.getValue();
-    if (value) { // if validation fails, value will be null
-      console.log(value); // value here is an instance of Person
+    if (value) {
+      console.log(value);
       this.userRef.update(value);
     }
   }
@@ -148,7 +148,7 @@ const mapDispatchToProps = (dispatch) => {
   return {
     getUser: (user) => {
       dispatch({
-        type: "GET_USER",
+        type: "FETCH_USER",
         payload: user
       });
     } 

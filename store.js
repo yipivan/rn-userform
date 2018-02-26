@@ -1,4 +1,7 @@
 import { applyMiddleware, createStore } from 'redux';
+import thunk from "redux-thunk";
+
+const middleware = applyMiddleware(thunk)
 
 function reducer(state = {
   form: {}
@@ -9,4 +12,4 @@ function reducer(state = {
   return state;
 }
 
-export default createStore(reducer);
+export default createStore(reducer, middleware);
