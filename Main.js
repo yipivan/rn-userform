@@ -10,6 +10,7 @@ import React, {Component} from 'react';
 import t from 'tcomb-form-native';
 import { getUser } from './actions';
 import firebase from 'firebase';
+import { Provider,connect } from 'react-redux';
 
 
 const firebaseConfig = {
@@ -58,7 +59,7 @@ const options = {
   auto: 'placeholders'
 };
 
-export default class Main extends Component{
+class Main extends Component{
 
   constructor() {
     super();
@@ -132,3 +133,22 @@ const styles = StyleSheet.create({
 });
 
 AppRegistry.registerComponent('Main', () => Main);
+
+const mapStateToProps = (state) => {
+  return {
+    form: state.form
+  }
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    getUser: (user) => {
+      dispatch({
+        type: "FETCH_USER",
+        payload: user
+      });
+    } 
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Main);

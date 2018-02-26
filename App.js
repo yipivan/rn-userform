@@ -17,22 +17,3 @@ export default class App extends Component{
 }
 
 AppRegistry.registerComponent('App', () => App);
-
-const mapStateToProps = (state) => {
-  return {
-    form: state.form
-  }
-}
-
-const mapDispatchToProps = (dispatch) => {
-  return {
-    getUser: (user) => {
-      dispatch({
-        type: "FETCH_USER",
-        payload: user
-      });
-    } 
-  }
-}
-
-connect(mapStateToProps, mapDispatchToProps)(App);
