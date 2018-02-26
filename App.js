@@ -6,7 +6,7 @@ import { Provider,connect } from 'react-redux';
 import store from './store';
 import Main from './Main';
 
-class App extends Component{
+export default class App extends Component{
   render() {
     return (
       <Provider store={store}>
@@ -35,4 +35,4 @@ const mapDispatchToProps = (dispatch) => {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+connect(mapStateToProps, mapDispatchToProps)(App);

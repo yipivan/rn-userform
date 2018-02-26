@@ -60,7 +60,7 @@ const options = {
   auto: 'placeholders'
 };
 
-export class Main extends Component{
+export default class Main extends Component{
 
   constructor() {
     super();
@@ -76,7 +76,7 @@ export class Main extends Component{
   }
   
   componentWillMount() {
-    this.props.getUser(this.userRef);
+    getUser(this.userRef);
   }
 
   onPress() {
@@ -136,4 +136,4 @@ const styles = StyleSheet.create({
   }
 });
 
-AppRegistry.registerComponent('Main', () => Main);
+AppRegistry.registerComponent('App', () => App);
