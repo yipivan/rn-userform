@@ -102,7 +102,6 @@ export default class Main extends Component{
   }
 }
 
-
 const styles = StyleSheet.create({
   container: {
     justifyContent: 'center',
