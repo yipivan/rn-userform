@@ -1,7 +1,7 @@
 import { applyMiddleware, createStore } from 'redux';
 import thunk from "redux-thunk";
+import { createLogger } from 'redux-logger';
 
-const middleware = applyMiddleware(thunk)
 
 function reducer(state = {
   form: {}
@@ -11,5 +11,7 @@ function reducer(state = {
   }
   return state;
 }
+
+const middleware = applyMiddleware(thunk, createLogger());
 
 export default createStore(reducer, middleware);
